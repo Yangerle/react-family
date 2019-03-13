@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev-build":"webpack --config webpack.dev.config.js"
+    "dev-build": "webpack --config webpack.dev.config.js",
+    "start":"webpack-dev-server --config webpack.dev.config.js --color --progress"
   },
   "author": "Yangerle",
   "license": "MIT",
@@ -15,10 +16,12 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
-    "webpack": "^3.12.0"
+    "webpack": "^3.12.0",
+    "webpack-dev-server": "^2.11.3"
   },
   "dependencies": {
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "react-router-dom": "^4.2.2"
   }
 }
