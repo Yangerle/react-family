@@ -12,7 +12,9 @@ module.exports={
 		alias: {
 			pages: path.join(__dirname, 'src/pages'),
 			component: path.join(__dirname, 'src/component'),
-			router: path.join(__dirname, 'src/router')
+			router: path.join(__dirname, 'src/router'),
+			// redux: path.join(__dirname, 'src/redux')//不能直接使用别名redux,因为‘import {createStore} from 'redux'’语句在webapck编译的时候碰到redux都去src/redux去找了，找不着，问题就出现了
+			reduxs: path.join(__dirname, 'src/redux')
 		}
 	},
 	devServer:{
