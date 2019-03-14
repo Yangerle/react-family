@@ -1,18 +1,27 @@
 
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
+var webpack = require('webpack');
+
 const path=require("path");
 module.exports={
-	entry:[
-		'react-hot-loader/patch',
-		path.join(__dirname,'src/index.js')
-	],
+	// entry:[
+	// 	'react-hot-loader/patch',
+	// 	path.join(__dirname,'src/index.js')
+	// ],
+	entry: {
+		app: [
+			'react-hot-loader/patch',
+			path.join(__dirname, 'src/index.js')
+		],
+		vendor: ['react', 'react-router-dom', 'redux', 'react-dom', 'react-redux']
+	},
 	output:{
 		path:path.join(__dirname,'./dist'),
 		// filename:'bundle.js'
 		// filename: 'bundle.js',
 		// chunkFilename: '[name].js'
-		filename: '[name].[hash].js',
+		filename: '[name].[hash].js',//这里应该用chunkhash替换hash
 		chunkFilename: '[name].[chunkhash].js'
 	},
 	resolve: {
@@ -28,6 +37,10 @@ module.exports={
 		new HtmlWebpackPlugin({
 			filename: 'index.html',
 			template: path.join(__dirname, 'src/index.html')
+		}),
+		/*plugins*/
+		new webpack.optimize.CommonsChunkPlugin({
+			name: 'vendor'
 		})
 	],
 	devtool: 'inline-source-map',
