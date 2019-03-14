@@ -17,6 +17,7 @@ module.exports={
 			reduxs: path.join(__dirname, 'src/redux')
 		}
 	},
+	devtool: 'inline-source-map',
 	devServer:{
 		port: 8080,
 		contentBase: path.join(__dirname, './dist'),
