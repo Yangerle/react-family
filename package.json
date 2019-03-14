@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev-build": "webpack --config webpack.dev.config.js",
-    "start": "webpack-dev-server --config webpack.dev.config.js --color --hot"
+    "start": "webpack-dev-server --config webpack.dev.config.js --color --hot",
+    "build":"webpack --config webpack.config.js --color"
   },
   "author": "Yangerle",
   "license": "MIT",
