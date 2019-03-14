@@ -1,3 +1,6 @@
+
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+
 const path=require("path");
 module.exports={
 	entry:[
@@ -7,8 +10,10 @@ module.exports={
 	output:{
 		path:path.join(__dirname,'./dist'),
 		// filename:'bundle.js'
-		filename: 'bundle.js',
-		chunkFilename: '[name].js'
+		// filename: 'bundle.js',
+		// chunkFilename: '[name].js'
+		filename: '[name].[hash].js',
+		chunkFilename: '[name].[chunkhash].js'
 	},
 	resolve: {
 		alias: {
@@ -19,6 +24,12 @@ module.exports={
 			reduxs: path.join(__dirname, 'src/redux')
 		}
 	},
+	plugins: [
+		new HtmlWebpackPlugin({
+			filename: 'index.html',
+			template: path.join(__dirname, 'src/index.html')
+		})
+	],
 	devtool: 'inline-source-map',
 	devServer:{
 		port: 8080,
