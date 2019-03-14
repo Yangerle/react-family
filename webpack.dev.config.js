@@ -25,11 +25,17 @@ module.exports={
 		host: '0.0.0.0'
 	},
 	module:{
-		rules:[{
-			test:/\.js$/,
-			use:['babel-loader?cacheDirectory=true'],
-			include:path.join(__dirname,'src')
-		}]
+		rules:[
+				{
+					test:/\.js$/,
+					use:['babel-loader?cacheDirectory=true'],
+					include:path.join(__dirname,'src')
+				},
+			{
+				test: /\.css$/,
+				use: ['style-loader', 'css-loader']
+			}
+		]
 	}
 
 }
