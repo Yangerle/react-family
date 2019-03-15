@@ -1,10 +1,18 @@
 
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const merge = require('webpack-merge');
 
-var webpack = require('webpack');
+const commonConfig = require('./webpack.common.config.js');
 
 const path=require("path");
-module.exports={
+module.exports=merge({
+	customizeArray(a, b, key) {
+		/*entry.app不合并，全替换*/
+		if (key === 'entry.app') {
+			return b;
+		}
+		return undefined;
+	}
+})(commonConfig,{
 	// entry:[
 	// 	'react-hot-loader/patch',
 	// 	path.join(__dirname,'src/index.js')
@@ -13,16 +21,16 @@ module.exports={
 		app: [
 			'react-hot-loader/patch',
 			path.join(__dirname, 'src/index.js')
-		],
-		vendor: ['react', 'react-router-dom', 'redux', 'react-dom', 'react-redux']
+		]
 	},
 	output:{
-		path:path.join(__dirname,'./dist'),
+		// path:path.join(__dirname,'./dist'),
 		// filename:'bundle.js'
 		// filename: 'bundle.js',
 		// chunkFilename: '[name].js'
-		filename: '[name].[hash].js',//这里应该用chunkhash替换hash
-		chunkFilename: '[name].[chunkhash].js'
+		/*这里本来应该是[chunkhash]的，但是由于[chunkhash]和react-hot-loader不兼容。只能妥协*/
+		filename: '[name].[hash].js',
+		// chunkFilename: '[name].[chunkhash].js'
 	},
 	resolve: {
 		alias: {
@@ -33,16 +41,6 @@ module.exports={
 			reduxs: path.join(__dirname, 'src/redux')
 		}
 	},
-	plugins: [
-		new HtmlWebpackPlugin({
-			filename: 'index.html',
-			template: path.join(__dirname, 'src/index.html')
-		}),
-		/*plugins*/
-		new webpack.optimize.CommonsChunkPlugin({
-			name: 'vendor'
-		})
-	],
 	devtool: 'inline-source-map',
 	devServer:{
 		port: 8080,
@@ -53,24 +51,10 @@ module.exports={
 	module:{
 		rules:[
 			{
-				test:/\.js$/,
-				use:['babel-loader?cacheDirectory=true'],
-				include:path.join(__dirname,'src')
-			},
-			{
 				test: /\.css$/,
 				use: ['style-loader', 'css-loader']
-			},
-			{
-				test: /\.(png|jpg|gif)$/,
-				use: [{
-					loader: 'url-loader',
-					options: {
-						limit: 8192
-					}
-				}]
 			}
 		]
 	}
 
-}
+})

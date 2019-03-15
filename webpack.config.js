@@ -1,54 +1,27 @@
+
+const merge = require('webpack-merge');
+
 const path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var webpack = require('webpack');
+const webpack = require('webpack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
+const commonConfig = require('./webpack.common.config.js');
 
-module.exports = {
+
+module.exports = merge(commonConfig,{
 	devtool: 'cheap-module-source-map',
-	entry: {
-		app: [
-			path.join(__dirname, 'src/index.js')
-		],
-		vendor: ['react', 'react-router-dom', 'redux', 'react-dom', 'react-redux']
-	},
-	output: {
-		path: path.join(__dirname, './dist'),
-		filename: '[name].[chunkhash].js',
-		chunkFilename: '[name].[chunkhash].js',
-		publicPath : '/'
-	},
-	resolve: {
-		alias: {
-			pages: path.join(__dirname, 'src/pages'),
-			component: path.join(__dirname, 'src/component'),
-			router: path.join(__dirname, 'src/router'),
-			// redux: path.join(__dirname, 'src/redux')//不能直接使用别名redux,因为‘import {createStore} from 'redux'’语句在webapck编译的时候碰到redux都去src/redux去找了，找不着，问题就出现了
-			reduxs: path.join(__dirname, 'src/redux')
-		}
-	},
 	plugins: [
-		new HtmlWebpackPlugin({
-			filename: 'index.html',
-			template: path.join(__dirname, 'src/index.html')
-		}),
-		new webpack.optimize.CommonsChunkPlugin({
-			name: 'vendor'
-		}),
-		new webpack.optimize.CommonsChunkPlugin({
-			name: 'runtime'
-		}),
 		new UglifyJSPlugin(),
 		new webpack.DefinePlugin({
 			'process.env': {
 				'NODE_ENV': JSON.stringify('production')
 			}
 		}),
-		new webpack.HashedModuleIdsPlugin(),
-		new CleanWebpackPlugin(['dist']),
+		//我修改了CleanWebpackPlugin的参数，不让他每次构建都删除api文件夹了。要不每次都得复制进去。麻烦~
+		new CleanWebpackPlugin(['dist/*.*']),
 		new ExtractTextPlugin({
 			filename: '[name].[contenthash:5].css',
 			allChunks: true
@@ -59,23 +32,11 @@ module.exports = {
 	],
 	module: {
 		rules: [{
-			test: /\.js$/,
-			use: ['babel-loader'],
-			include: path.join(__dirname, 'src')
-		}, {
 			test: /\.css$/,
 			use: ExtractTextPlugin.extract({
 				fallback: "style-loader",
 				use: "css-loader"
 			})
-		}, {
-			test: /\.(png|jpg|gif)$/,
-			use: [{
-				loader: 'url-loader',
-				options: {
-					limit: 8192
-				}
-			}]
 		}]
 	}
-};
+});
