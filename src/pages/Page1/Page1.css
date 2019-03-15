@@ -1,3 +1,8 @@
 .page-box {
     border: 1px solid red;
 }
+
+/*编译前*/
+.container{
+    display: flex;
+}
