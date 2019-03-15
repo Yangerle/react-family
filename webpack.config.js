@@ -2,6 +2,8 @@ const path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
 
 
 module.exports = {
@@ -44,7 +46,9 @@ module.exports = {
 				'NODE_ENV': JSON.stringify('production')
 			}
 		}),
-		new webpack.HashedModuleIdsPlugin()
+		new webpack.HashedModuleIdsPlugin(),
+		new CleanWebpackPlugin(['dist'])
+
 
 
 	],
