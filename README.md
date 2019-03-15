@@ -1,11 +1,8 @@
 # 从零搭建React全家桶框架教程
 
-Table of Contents
-=================
-
 * [从零搭建React全家桶框架教程](#%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAreact%E5%85%A8%E5%AE%B6%E6%A1%B6%E6%A1%86%E6%9E%B6%E6%95%99%E7%A8%8B)
   * [创建日期：2019\.3\.12](#%E5%88%9B%E5%BB%BA%E6%97%A5%E6%9C%9F2019312)
-  * [修改日期：2019\.3\.12](#%E4%BF%AE%E6%94%B9%E6%97%A5%E6%9C%9F2019312)
+  * [修改日期：2019\.3\.15](#%E4%BF%AE%E6%94%B9%E6%97%A5%E6%9C%9F2019315)
   * [source](#source)
   * [写在前面](#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2)
   * [说明](#%E8%AF%B4%E6%98%8E)
@@ -40,6 +37,10 @@ Table of Contents
   * [模拟AJAX数据之Mock\.js](#%E6%A8%A1%E6%8B%9Fajax%E6%95%B0%E6%8D%AE%E4%B9%8Bmockjs)
   * [使用 CSS Modules](#%E4%BD%BF%E7%94%A8-css-modules)
   * [使用 json\-server 代替 Mock\.js](#%E4%BD%BF%E7%94%A8-json-server-%E4%BB%A3%E6%9B%BF-mockjs)
+  * [快速生成Github README\.md的目录](#%E5%BF%AB%E9%80%9F%E7%94%9F%E6%88%90github-readmemd%E7%9A%84%E7%9B%AE%E5%BD%95)
+    * [Github\+百度搜索结果](#github%E7%99%BE%E5%BA%A6%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%9C)
+    * [解决方案：gh\-md\-toc](#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88gh-md-toc)
+
 
 
 ## 创建日期：2019.3.12
@@ -78,7 +79,6 @@ Table of Contents
   * <http://www.jianshu.com/p/dd23a6547114>
   * <https://segmentfault.com/a/1190000005793320>
 * [CSS Modules 用法教程](http://www.ruanyifeng.com/blog/2016/06/css_modules.html)
-* 
 
 ## 写在前面
 
@@ -154,7 +154,7 @@ Table of Contents
 
 ### 目录说明
 
-``` 
+``` makefile
 │  .babelrc                          #babel配置文件
 │  package-lock.json
 │  package.json
@@ -260,7 +260,7 @@ Table of Contents
 
 - proxy 代理。比如在 `localhost:3000` 上有后端服务的话，你可以这样启用代理：
 
-  ```
+  ```javascript
       proxy: {
         "/api": "http://localhost:3000"
       }
@@ -539,7 +539,7 @@ new webpack.optimize.CommonsChunkPlugin({
 
 你现在打开`dist`，是不是发现好多好多文件，每次打包后的文件在这里混合了？我们希望每次打包前自动清理下`dist`文件。
 
-```bash
+```javascript
 npm install clean-webpack-plugin --save-dev
 webpack.config.js
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -1086,3 +1086,84 @@ package.json
 
 **问题：windows不支持命令并行执行&，你可以分开执行，或者使用npm-run-all**
 
+## 快速生成Github README.md的目录
+
+熟悉Github的同学可能知道创建一个Repo，通常都会生成一个README.md。好的README能增加代码的可阅读性。另外通常也可以将README作为开发文档。而这个README本身是遵循Markdown语法的，但是Markdown本身并没有绝对标准，Github的渲染方式与一些常用博客渲染方式不相同，导致在使用时有些麻烦。这里推荐一个Github上的教程。
+
+[GFM教程](https://link.jianshu.com?t=https%3A%2F%2Fgithub.com%2Fguodongxiaren%2FREADME%2Fblob%2Fmaster%2FREADME.md)
+
+[GFM教程博客地址](https://link.jianshu.com?t=http%3A%2F%2Fblog.csdn.net%2Fkaitiren%2Farticle%2Fdetails%2F38513715)
+
+事实上大部分和普通Markdown还是类似的，但是目录的语法差别蛮大，刚好对于笔者而言，最近需要在Github上文档上建立目录来使用，但是又不想写GFM的语法。这个时候刚好搜索到了一些可以用的开源代码。这里简单介绍一个目前使用的方法。
+
+### Github+百度搜索结果
+
+
+
+![img](https:////upload-images.jianshu.io/upload_images/3229757-ded8dc8a31cd7989.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp)
+
+
+
+事实上解决方案还蛮多的（Github大法好）。
+
+当时还在百度上搜索了下，找到了这个方案。
+
+[ghtoc Github地址（pyhon）](https://link.jianshu.com?t=https%3A%2F%2Fgithub.com%2Fsk1418%2Fghtoc)
+
+[ghtoc博客](https://link.jianshu.com?t=https%3A%2F%2Fwww.v2ex.com%2Ft%2F151106)
+
+### 解决方案：gh-md-toc
+
+后面发现了gh-md-toc这个神器。
+
+[gh-md-toc Github地址](https://link.jianshu.com?t=https%3A%2F%2Fgithub.com%2Fekalinin%2Fgithub-markdown-toc)
+
+但是这个东西在Mac和Linux很友好，windows似乎不那么友好。不过这里也给了windows的解决方案。
+
+
+
+![img](https:////upload-images.jianshu.io/upload_images/3229757-31243336441b1b39.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/903/format/webp)
+
+
+
+就是github-markdown-toc.go。
+
+[github-markdown-toc.go Github地址](https://link.jianshu.com?t=https%3A%2F%2Fgithub.com%2Fekalinin%2Fgithub-markdown-toc.go)
+
+如果你有GO语言（又是你）的编译环境，可以尝试自己编译，如果没有，可以直接下载编译好的二进制文件。
+
+[二进制文件](https://link.jianshu.com?t=https%3A%2F%2Fgithub.com%2Fekalinin%2Fgithub-markdown-toc.go%2Freleases)
+
+下载下来之后，发现没有后缀名无法识别，实际上这是个exe文件，所以只需要暴力地在后面加上.exe就可以开始愉快使用了。
+
+首先将README.md文档复制到gh-md-toc.exe的根目录下。
+
+接着按住shift键同时右击。
+
+
+
+![img](https:////upload-images.jianshu.io/upload_images/3229757-952062482956f2a8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/282/format/webp)
+
+
+
+打开Powershell窗口后，直接键入。
+
+```bash
+./gh-md-toc.exe README.md
+```
+
+
+
+![img](https:////upload-images.jianshu.io/upload_images/3229757-4d7a8fa988051fd7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/962/format/webp)
+
+
+
+接下来只需将这段话复制粘贴到README.md里面即可。
+
+作者：G小调的Qing歌
+
+链接：https://www.jianshu.com/p/302abe331dcb
+
+来源：简书
+
+简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。
