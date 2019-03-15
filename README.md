@@ -1,12 +1,50 @@
 # 从零搭建React全家桶框架教程
 
-[TOC]
+Table of Contents
+=================
 
+* [从零搭建React全家桶框架教程](#%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAreact%E5%85%A8%E5%AE%B6%E6%A1%B6%E6%A1%86%E6%9E%B6%E6%95%99%E7%A8%8B)
+  * [创建日期：2019\.3\.12](#%E5%88%9B%E5%BB%BA%E6%97%A5%E6%9C%9F2019312)
+  * [修改日期：2019\.3\.12](#%E4%BF%AE%E6%94%B9%E6%97%A5%E6%9C%9F2019312)
+  * [source](#source)
+  * [写在前面](#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2)
+  * [说明](#%E8%AF%B4%E6%98%8E)
+    * [技术栈](#%E6%8A%80%E6%9C%AF%E6%A0%88)
+    * [目录说明](#%E7%9B%AE%E5%BD%95%E8%AF%B4%E6%98%8E)
+  * [init项目](#init%E9%A1%B9%E7%9B%AE)
+  * [babel](#babel)
+  * [路由启动是需要配置服务器的、](#%E8%B7%AF%E7%94%B1%E5%90%AF%E5%8A%A8%E6%98%AF%E9%9C%80%E8%A6%81%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84)
+    * [服务器类型](#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%B1%BB%E5%9E%8B)
+    * [webpack\-dev\-server配置选项](#webpack-dev-server%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9)
+  * [模块热替换](#%E6%A8%A1%E5%9D%97%E7%83%AD%E6%9B%BF%E6%8D%A2)
+  * [redux](#redux)
+  * [编译CSS](#%E7%BC%96%E8%AF%91css)
+  * [编译图片](#%E7%BC%96%E8%AF%91%E5%9B%BE%E7%89%87)
+  * [按需加载](#%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD)
+  * [缓存](#%E7%BC%93%E5%AD%98)
+  * [提取公共代码](#%E6%8F%90%E5%8F%96%E5%85%AC%E5%85%B1%E4%BB%A3%E7%A0%81)
+  * [生产环境构建](#%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E6%9E%84%E5%BB%BA)
+  * [文件压缩](#%E6%96%87%E4%BB%B6%E5%8E%8B%E7%BC%A9)
+  * [指定环境](#%E6%8C%87%E5%AE%9A%E7%8E%AF%E5%A2%83)
+  * [优化缓存](#%E4%BC%98%E5%8C%96%E7%BC%93%E5%AD%98)
+  * [public path](#public-path)
+  * [打包优化](#%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96)
+  * [抽取css](#%E6%8A%BD%E5%8F%96css)
+  * [使用axios和middleware优化API请求](#%E4%BD%BF%E7%94%A8axios%E5%92%8Cmiddleware%E4%BC%98%E5%8C%96api%E8%AF%B7%E6%B1%82)
+  * [调整文本编辑器,实现自动编译](#%E8%B0%83%E6%95%B4%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E7%BC%96%E8%AF%91)
+  * [合并提取webpack公共配置](#%E5%90%88%E5%B9%B6%E6%8F%90%E5%8F%96webpack%E5%85%AC%E5%85%B1%E9%85%8D%E7%BD%AE)
+  * [优化目录结构并增加404页面](#%E4%BC%98%E5%8C%96%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%B9%B6%E5%A2%9E%E5%8A%A0404%E9%A1%B5%E9%9D%A2)
+  * [加入 babel\-plugin\-transform\-runtime 和 babel\-polyfill](#%E5%8A%A0%E5%85%A5-babel-plugin-transform-runtime-%E5%92%8C-babel-polyfill)
+  * [集成PostCSS](#%E9%9B%86%E6%88%90postcss)
+  * [redux 模块热替换配置](#redux-%E6%A8%A1%E5%9D%97%E7%83%AD%E6%9B%BF%E6%8D%A2%E9%85%8D%E7%BD%AE)
+  * [模拟AJAX数据之Mock\.js](#%E6%A8%A1%E6%8B%9Fajax%E6%95%B0%E6%8D%AE%E4%B9%8Bmockjs)
+  * [使用 CSS Modules](#%E4%BD%BF%E7%94%A8-css-modules)
+  * [使用 json\-server 代替 Mock\.js](#%E4%BD%BF%E7%94%A8-json-server-%E4%BB%A3%E6%9B%BF-mockjs)
 
 
 ## 创建日期：2019.3.12
 
-## 修改日期：2019.3.12
+## 修改日期：2019.3.15
 
 
 
@@ -435,7 +473,7 @@ npm i --save-dev uglifyjs-webpack-plugin
 
 > 许多 library 将通过与 process.env.NODE_ENV 环境变量关联，以决定 library 中应该引用哪些内容。例如，当不处于生产环境中时，某些 library 为了使调试变得容易，可能会添加额外的日志记录(log)和测试(test)。其实，当使用 process.env.NODE_ENV === 'production' 时，一些 library 可能针对具体用户的环境进行代码优化，从而删除或添加一些重要代码。我们可以使用 webpack 内置的 DefinePlugin 为所有的依赖定义这个变量：
 
-```
+```javascript
 webpack.config.js
 module.exports = {
   plugins: [
@@ -463,7 +501,7 @@ module.exports = {
 
 [官方文档](https://doc.webpack-china.org/guides/caching)推荐了一个插件[HashedModuleIdsPlugin](https://doc.webpack-china.org/plugins/hashed-module-ids-plugin)
 
-```
+```javascript
     plugins: [
         new webpack.HashedModuleIdsPlugin()
     ]
@@ -471,7 +509,7 @@ module.exports = {
 
 现在你打包，修改代码再试试，是不是名字不变啦？错了，现在打包，我发现名字还是变了，经过比对文档，我发现还要加一个`runtime`代码抽取，
 
-```
+```javascript
 new webpack.optimize.CommonsChunkPlugin({
     name: 'runtime'
 })
@@ -501,7 +539,7 @@ new webpack.optimize.CommonsChunkPlugin({
 
 你现在打开`dist`，是不是发现好多好多文件，每次打包后的文件在这里混合了？我们希望每次打包前自动清理下`dist`文件。
 
-```
+```bash
 npm install clean-webpack-plugin --save-dev
 webpack.config.js
 const CleanWebpackPlugin = require('clean-webpack-plugin');
