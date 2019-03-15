@@ -6,3 +6,19 @@
 .container{
     display: flex;
 }
+
+.box {
+    border: 1px solid red;
+}
+
+/*加载多个局部类*/
+.mix{
+    composes: page-box;
+    composes: container;
+}
+
+
+/*声明一个全局规则。凡是这样声明的class，都不会被编译成哈希字符串。*/
+:global(.title) {
+    color: green;
+}
