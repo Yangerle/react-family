@@ -24,7 +24,8 @@ module.exports = {
 			components: path.join(__dirname, 'src/components'),
 			router: path.join(__dirname, 'src/router'),
 			// redux: path.join(__dirname, 'src/redux')//不能直接使用别名redux,因为‘import {createStore} from 'redux'’语句在webapck编译的时候碰到redux都去src/redux去找了，找不着，问题就出现了
-			reduxs: path.join(__dirname, 'src/redux')
+			reduxs: path.join(__dirname, 'src/redux'),
+			mock: path.join(__dirname, 'mock')
 		}
 	},
 	plugins: [

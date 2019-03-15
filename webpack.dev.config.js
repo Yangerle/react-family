@@ -3,6 +3,9 @@ const merge = require('webpack-merge');
 
 const commonConfig = require('./webpack.common.config.js');
 
+const webpack = require('webpack');
+
+
 const path=require("path");
 module.exports=merge({
 	customizeArray(a, b, key) {
@@ -49,6 +52,11 @@ module.exports=merge({
 		historyApiFallback: true,
 		host: '0.0.0.0'
 	},
+	plugins:[
+		new webpack.DefinePlugin({
+			MOCK: true
+		})
+	],
 	module:{
 		rules:[
 			{

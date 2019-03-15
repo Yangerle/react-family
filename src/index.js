@@ -5,9 +5,17 @@ import {Provider} from 'react-redux';
 import store from './redux/store';
 import {BrowserRouter as Router} from 'react-router-dom';
 
+// import '../mock/mock';
+
+
 
 // import getRouter from 'router/router';
 import App from 'components/App/App';
+
+
+if (MOCK) {
+	require('mock/mock');
+}
 
 /*初始化*/
 renderWithHotReload(App);
