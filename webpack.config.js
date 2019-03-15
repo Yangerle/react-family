@@ -4,6 +4,7 @@ var webpack = require('webpack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 
 module.exports = {
@@ -47,7 +48,11 @@ module.exports = {
 			}
 		}),
 		new webpack.HashedModuleIdsPlugin(),
-		new CleanWebpackPlugin(['dist'])
+		new CleanWebpackPlugin(['dist']),
+		new ExtractTextPlugin({
+			filename: '[name].[contenthash:5].css',
+			allChunks: true
+		})
 
 
 
@@ -59,7 +64,10 @@ module.exports = {
 			include: path.join(__dirname, 'src')
 		}, {
 			test: /\.css$/,
-			use: ['style-loader', 'css-loader']
+			use: ExtractTextPlugin.extract({
+				fallback: "style-loader",
+				use: "css-loader"
+			})
 		}, {
 			test: /\.(png|jpg|gif)$/,
 			use: [{
